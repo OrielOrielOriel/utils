@@ -1,0 +1,3 @@
+# VPN
+start_vpn () { sudo openvpn ~/.dotfiles/.vpn_configs/$1.ovpn; }
+

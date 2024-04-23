@@ -1,0 +1,8 @@
+# path
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.dotfiles/.scripts
+
+# sources
+. $HOME/.dotfiles/.shell/aliases
+. $HOME/.dotfiles/.shell/functions
+. $HOME/.cargo/env

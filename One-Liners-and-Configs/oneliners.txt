@@ -1,0 +1,73 @@
+# find image files
+find . -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image'
+
+# strip file extensions
+for s in $(for x in $(ls *.c); do echo $x | cut -d '.' -f 1; done); do mv $s* $s; done
+
+# password spray against smb
+for LINE in `cat userlist.txt`;do printf "Welcome123!" | smbclient -L //10.10.10.169/ -U $LINE;done
+
+# get your public ip
+dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'
+curl ipinfo.io/ip
+
+# get asn for a list of ips
+for LINE in `cat ips.txt`; do whois -h v4.whois.cymru.com " -c -p $LINE" | cut -d ' ' -f 1 | grep -v AS; done
+
+# regex for email
+sublime: (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+
+grep -oP \(\?\:\[\a\-\z\0\-\9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-\]\+\(\?\:\\\.\[\a\-\z\0\-\9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-\]\+\)\*\|\"\(\?\:\[\\\x\0\1\-\\\x\0\8\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\1\f\\\x\2\1\\\x\2\3\-\\\x\5\b\\\x\5\d\-\\\x\7\f\]\|\\\\\[\\\x\0\1\-\\\x\0\9\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\7\f\]\)\*\"\)\@\(\?\:\(\?\:\[\a\-\z\0\-\9\]\(\?\:\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\)\?\\\.\)\+\[\a\-\z\0\-\9\]\(\?\:\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\)\?\|\\\[\(\?\:\(\?\:\2\5\[\0\-\5\]\|\2\[\0\-\4\]\[\0\-\9\]\|\[\0\1\]\?\[\0\-\9\]\[\0\-\9\]\?\)\\\.\)\{\3\}\(\?\:\2\5\[\0\-\5\]\|\2\[\0\-\4\]\[\0\-\9\]\|\[\0\1\]\?\[\0\-\9\]\[\0\-\9\]\?\|\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\:\(\?\:\[\\\x\0\1\-\\\x\0\8\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\1\f\\\x\2\1\-\\\x\5\a\\\x\5\3\-\\\x\7\f\]\|\\\\\[\\\x\0\1\-\\\x\0\9\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\7\f\]\)\+\)\\\]\)
+
+rg -i -e \(\?\:\[\a\-\z\0\-\9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-\]\+\(\?\:\\\.\[\a\-\z\0\-\9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-\]\+\)\*\|\"\(\?\:\[\\\x\0\1\-\\\x\0\8\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\1\f\\\x\2\1\\\x\2\3\-\\\x\5\b\\\x\5\d\-\\\x\7\f\]\|\\\\\[\\\x\0\1\-\\\x\0\9\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\7\f\]\)\*\"\)\@\(\?\:\(\?\:\[\a\-\z\0\-\9\]\(\?\:\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\)\?\\\.\)\+\[\a\-\z\0\-\9\]\(\?\:\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\)\?\|\\\[\(\?\:\(\?\:\2\5\[\0\-\5\]\|\2\[\0\-\4\]\[\0\-\9\]\|\[\0\1\]\?\[\0\-\9\]\[\0\-\9\]\?\)\\\.\)\{\3\}\(\?\:\2\5\[\0\-\5\]\|\2\[\0\-\4\]\[\0\-\9\]\|\[\0\1\]\?\[\0\-\9\]\[\0\-\9\]\?\|\[\a\-\z\0\-\9\-\]\*\[\a\-\z\0\-\9\]\:\(\?\:\[\\\x\0\1\-\\\x\0\8\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\1\f\\\x\2\1\-\\\x\5\a\\\x\5\3\-\\\x\7\f\]\|\\\\\[\\\x\0\1\-\\\x\0\9\\\x\0\b\\\x\0\c\\\x\0\e\-\\\x\7\f\]\)\+\)\\\]\) -o
+
+# regex for ssn
+[0-9]{3}-[0-9]{2}-[0-9]{4}
+
+# regex for period followed by blankspace
+\.(?=\n|\t|\s)
+
+# oledump for vba from office docs
+for FILE in <PATH TO FILES>/*;do echo "$FILE" && python /opt/oledump0.0.5/oledump.py -s 7 -v "$FILE";done | grep -vP '(Warning|Error):' | tee -a <OUTPUT FILE>
+
+# excel unique values
+=SUMPRODUCT(--(FREQUENCY(MATCH(data,data,0),ROW(data)-ROW(data.firstcell)+1)>0))
+
+# excel unique values with a condition
+=SUM(--(FREQUENCY(IF(criteria,MATCH(vals,vals,0)),ROW(vals)-ROW(vals.first)+1)>0))
+
+#excel email domain
+=IFERROR(LOWER(MID(A81,SEARCH("@",A81)+1,255)),"")
+
+#excel domain tld
+=SUBSTITUTE(TRIM(RIGHT(SUBSTITUTE(REPLACE(REPLACE(I2, 1, IFERROR(FIND("//", I2)+1, 0), TEXT(,))&"/", FIND("/", REPLACE(I2, 1, IFERROR(FIND("//", I2)+1, 0), TEXT(,))&"/"), LEN(I2), TEXT(,)), CHAR(46), REPT(CHAR(32), LEN(I2))), LEN(I2)*2)), CHAR(32), CHAR(46))
+
+# tcpdump for things not destined for the local host
+tcpdump -i eth0 ether dst not MAC-ADDRESS and dst not LOCAL-IP and src not 10.30.90.129 -w - | tee FILE | tcpdump -
+
+# domain / url up to subdirectories from json
+htt(p|ps)://[^/|^"|^:]*
+
+# grep file difference or line not in file
+for line in `cat output-parsed.txt`; do if ! grep -x -e $line ../../fqdns.txt; then echo $line >> difference.txt; fi; done
+
+#excel raw us phone to standard mask
+=TEXT(RIGHT(B2,10),"(000) 000-0000")
+
+# regex ip
+\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b
+
+# regex for string between two delimiters
+(?<=\t)(.*?)(?=\t)
+\(?\<=s:x\)\(x\)\(?=x\) #escaped for CLI
+
+#resolve ip and strip
+dig +short $x | grep '^[.0-9]*$'
+
+#asn sites
+https://v4.whois.cymru.com/
+https://search.arin.net/
+https://bgp.he.net/
+
+#wordlist based on json 
+jq -r '[paths|map(.|tostring)|join("/")]' test.json
